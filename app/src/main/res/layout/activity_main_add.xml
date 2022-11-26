@@ -13,7 +13,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="28dp"
         android:text="@string/pre_input"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:text="@string/pre_inputTag"
-        android:textSize="18sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/textView2_input"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView2_input"
@@ -44,21 +44,20 @@
         app:layout_constraintStart_toEndOf="@+id/textView2_input"
         app:layout_constraintTop_toTopOf="@+id/textView2_input" />
 
-    <EditText
-        android:id="@+id/editText2_id2"
+    <Spinner
+        android:id="@+id/spinner2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:autofillHints=""
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:text="@string/pre_inputTag"
+
+        android:entries="@array/spinner_data"
+        android:spinnerMode="dropdown"
+
         android:textSize="18sp"
+        android:layout_marginStart="32dp"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView2_input2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
         app:layout_constraintStart_toEndOf="@+id/textView2_input2"
-        app:layout_constraintTop_toTopOf="@+id/textView2_input2"
-        app:layout_constraintVertical_bias="0.541" />
+        app:layout_constraintTop_toTopOf="@+id/textView2_input2" />
 
     <Button
         android:id="@+id/button2_yes_id"

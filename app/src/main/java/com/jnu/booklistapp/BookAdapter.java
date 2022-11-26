@@ -78,7 +78,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyHolder> {
             Book book = mBookList.get(getContextMenuPosition());
             Log.i("Adapter", "onCreateContextMenu: "+getContextMenuPosition());
             menu.setHeaderTitle(book.getName());
-            ((FragmentBookList)(((MainActivity)mContext).getFragment())).CreateMenu(menu);
+            ((FragmentBookList)(((MainActivity)mContext).fragmentBookList)).CreateMenu(menu);
         }
     }
 }

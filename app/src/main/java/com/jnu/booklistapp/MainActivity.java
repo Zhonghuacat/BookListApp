@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
-        mFragment =new FragmentBookList();//adapter需要获取对象执行CreateMenu方法
+        mFragment= fragmentBookList =new FragmentBookList();//adapter需要获取对象执行CreateMenu方法
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container,mFragment,"main").commit();
     }
@@ -82,11 +82,4 @@ public class MainActivity extends AppCompatActivity {
         RBtn.setCompoundDrawables(null,drawable,null,null);
     }
 
-    public Fragment getFragment() {
-        return mFragment;
-    }
-
-    public void setFragment(Fragment mFragment) {
-        this.mFragment = mFragment;
-    }
 }

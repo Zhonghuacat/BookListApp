@@ -89,6 +89,7 @@ public class FragmentBookList extends Fragment {
                 Intent intent2=new Intent(context,MainActivity_add.class);
                 intent2.putExtra("book_name",mBookList.get(mBookAdapter.getContextMenuPosition()).getName());
                 intent2.putExtra("position",mBookAdapter.getContextMenuPosition());
+                intent2.putExtra("tag",mBookList.get(mBookAdapter.getContextMenuPosition()).getTag());
                 test.launch(intent2);
                 break;
             case 3:
@@ -137,12 +138,15 @@ public class FragmentBookList extends Fragment {
                     if (result.getResultCode() == 666){
                         int position = result.getData().getIntExtra("position",0);
                         String name = result.getData().getStringExtra("data");
-                        mBookList.add(position,new Book(R.drawable.book_no_name,name,"TAG"));
+                        String tag = result.getData().getStringExtra("tag");
+                        mBookList.add(position,new Book(R.drawable.book_no_name,name,tag));
                         mBookAdapter.notifyItemInserted(position);
                     }
                     if (result.getResultCode() == 888){
                         int position = result.getData().getIntExtra("position",0);
                         String name = result.getData().getStringExtra("data");
+                        String tag = result.getData().getStringExtra("tag");
+                        mBookList.get(position).setTag(tag);
                         mBookList.get(position).setName(name);
                         mBookAdapter.notifyItemChanged(position);
                     }
