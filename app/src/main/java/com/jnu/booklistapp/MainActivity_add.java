@@ -19,6 +19,7 @@ public class MainActivity_add extends AppCompatActivity {
 
     public int resultCode = 666;
     private String[] tagList=new String[]{
+            "其他",
             "科技",
             "历史",
             "人文",
@@ -35,7 +36,8 @@ public class MainActivity_add extends AppCompatActivity {
         Button button_yes = this.findViewById(R.id.button2_yes_id);
         Button button_no = this.findViewById(R.id.button2_no_id);
         Spinner spinner = findViewById(R.id.spinner2);
-        ArrayAdapter<String> adapter2=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item ,tagList);
+        ArrayAdapter<String> adapter2=new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item ,tagList);
         spinner.setAdapter(adapter2);
 
 
