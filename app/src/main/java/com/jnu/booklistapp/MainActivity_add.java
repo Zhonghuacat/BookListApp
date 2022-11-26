@@ -48,6 +48,12 @@ public class MainActivity_add extends AppCompatActivity {
         if (intent.getStringExtra("tag")!=null){
             resultCode = 888;
             tag=intent.getStringExtra("tag");
+            for (int i=0;i<tagList.length;i++){
+                if (tagList[i].equals(tag)){
+                    spinner.setSelection(i);
+                    break;
+                }
+            }
         }
 
         button_yes.setOnClickListener(new View.OnClickListener() {
