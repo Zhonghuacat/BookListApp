@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.radioButton:
                         switchFragment(new FragmentBookList());break;
                     case R.id.radioButton2:
-                        switchFragment(new FragmentBookList());break;
+                        switchFragment(new FragmentClassify());break;
                     case R.id.radioButton3:
                         switchFragment(new FragmentBookList());break;
                     case R.id.radioButton4:
