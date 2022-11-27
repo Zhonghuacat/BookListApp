@@ -32,9 +32,9 @@ import java.util.List;
 
 public class FragmentBookList extends Fragment {
 
-    private List<Book> mBookList=new ArrayList<Book>();
+    private List<Book> mBookList;
     private RecyclerView recyclerView;
-    private BookAdapter mBookAdapter;
+    public BookAdapter mBookAdapter;
     private Context context;
 
     @Override
@@ -60,7 +60,7 @@ public class FragmentBookList extends Fragment {
     }
 
     public FragmentBookList() {
-        // Required empty public constructor
+
     }
 
     public static FragmentBookList newInstance() {
@@ -90,6 +90,7 @@ public class FragmentBookList extends Fragment {
                 intent2.putExtra("book_name",mBookList.get(mBookAdapter.getContextMenuPosition()).getName());
                 intent2.putExtra("position",mBookAdapter.getContextMenuPosition());
                 intent2.putExtra("tag",mBookList.get(mBookAdapter.getContextMenuPosition()).getTag());
+                intent2.putExtra("author",mBookList.get(mBookAdapter.getContextMenuPosition()).getAuthors());
                 test.launch(intent2);
                 break;
             case 3:
@@ -139,18 +140,38 @@ public class FragmentBookList extends Fragment {
                         int position = result.getData().getIntExtra("position",0);
                         String name = result.getData().getStringExtra("data");
                         String tag = result.getData().getStringExtra("tag");
-                        mBookList.add(position,new Book(R.drawable.book_no_name,name,tag));
+                        String author = result.getData().getStringExtra("author");
+                        Book book = new Book(R.drawable.book_no_name,name,tag);
+                        book.setAuthors(author);
+                        mBookList.add(position,book);
                         mBookAdapter.notifyItemInserted(position);
                     }
                     if (result.getResultCode() == 888){
                         int position = result.getData().getIntExtra("position",0);
                         String name = result.getData().getStringExtra("data");
                         String tag = result.getData().getStringExtra("tag");
+                        String author = result.getData().getStringExtra("author");
                         mBookList.get(position).setTag(tag);
                         mBookList.get(position).setName(name);
+                        mBookList.get(position).setAuthors(author);
                         mBookAdapter.notifyItemChanged(position);
                     }
                     save();
+                }
+            });
+
+    public ActivityResultLauncher test2 = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>(){
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent intent = result.getData();
+                    Boolean isLike = intent.getBooleanExtra("isLike",false);
+                    int position = intent.getIntExtra("position",0);
+                    mBookList.get(position).setLike(isLike);
+                    mBookAdapter.notifyItemChanged(position);
+                    save();
+
                 }
             });
 

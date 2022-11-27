@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.radioButton2:
                         switchFragment(new FragmentClassify());break;
                     case R.id.radioButton3:
-                        switchFragment(new FragmentBookList());break;
+                        switchFragment(new FragmentClassify());break;
                     case R.id.radioButton4:
-                        switchFragment(new FragmentBookList());break;
+                        switchFragment(new FragmentClassify());break;
                     default:break;
                 }
             }
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFragment() {
-        mFragment= fragmentBookList =new FragmentBookList();//adapter需要获取对象执行CreateMenu方法
+        mFragment = fragmentBookList =new FragmentBookList();//adapter需要获取对象执行CreateMenu方法
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container,mFragment,"main").commit();
     }
@@ -81,5 +81,7 @@ public class MainActivity extends AppCompatActivity {
         drawable.setBounds(0,0,80,80);
         RBtn.setCompoundDrawables(null,drawable,null,null);
     }
+
+
 
 }

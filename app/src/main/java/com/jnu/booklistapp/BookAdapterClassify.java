@@ -10,17 +10,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyHolder> {
-
+public class BookAdapterClassify extends RecyclerView.Adapter<BookAdapterClassify.MyHolder>{
     private int position;
     private List<Book> mBookList;
     private Context mContext;
@@ -29,22 +24,22 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyHolder> {
     public void setContextMenuPosition(int position) { this.position = position; }
 
     //构造函数初始化数据
-    public BookAdapter(List<Book>mBookList, Context mContext){
+    public BookAdapterClassify(List<Book>mBookList, Context mContext){
         this.mBookList=mBookList;
         this.mContext=mContext;
     }
 
     //创建Holder时候将去绑定一个Item
     @Override
-    public MyHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public BookAdapterClassify.MyHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
-        MyHolder holder=new MyHolder(view);
+        BookAdapterClassify.MyHolder holder=new BookAdapterClassify.MyHolder(view);
         return holder;
     }
 
     //给Holder的Item的View绑定值
     @Override
-    public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final BookAdapterClassify.MyHolder holder, int position) {
         Book book=mBookList.get(position);
         holder.bookName.setText(book.getName());
         holder.bookImage.setImageResource(book.getImageId());
@@ -69,7 +64,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyHolder> {
                 intent.putExtra("imageId",book.getImageId());
                 intent.putExtra("isLike",book.isLike());
 //                mContext.startActivity(intent);
-                ((FragmentBookList)(((MainActivity)mContext).fragmentBookList)).test2.launch(intent);
+                ((MainActivity_selected)mContext).test_classify.launch(intent);
             }
         });
 
@@ -83,7 +78,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyHolder> {
     }
 
     //用Holder找到Item的中的view
-    class MyHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener{
+    class MyHolder extends RecyclerView.ViewHolder{
         private TextView bookName;
         private ImageView bookImage;
         private TextView bookTag;
@@ -92,15 +87,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyHolder> {
             bookImage=view.findViewById(R.id.imageView);
             bookName=view.findViewById(R.id.textView_name);
             bookTag=view.findViewById(R.id.textView_tag);
-            view.setOnCreateContextMenuListener(this);
         }
 
-        @Override
-        public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-            Book book = mBookList.get(getContextMenuPosition());
-            Log.i("Adapter", "onCreateContextMenu: "+getContextMenuPosition());
-            menu.setHeaderTitle(book.getName());
-            ((FragmentBookList)(((MainActivity)mContext).fragmentBookList)).CreateMenu(menu);
-        }
     }
 }

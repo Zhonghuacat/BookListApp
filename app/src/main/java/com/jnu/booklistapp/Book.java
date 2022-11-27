@@ -8,9 +8,12 @@ public class Book implements Serializable {
     private int imageId;
     private String name;
     private String tag;
+    private String authors;
+    private boolean isLike=false;
+
 
     public Book(int imageId,String name,String tag){
-        this.bookId=System.currentTimeMillis();;
+        this.bookId=System.currentTimeMillis();
         this.imageId=imageId;
         this.name=name;
         this.tag=tag;
@@ -46,5 +49,21 @@ public class Book implements Serializable {
 
     public void setBookId(long bookId) {
         this.bookId = bookId;
+    }
+
+    public String getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
+    }
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
     }
 }

@@ -12,10 +12,13 @@
     <string name="pre_inputTag">请选择标签：</string>
     <string name="bookName">书名</string>
     <string name="tag">标签</string>
+    <string name="author">作者</string>
     <string name="science">科技</string>
     <string name="history">历史</string>
     <string name="culture">人文</string>
     <string name="other">其他</string>
+    <string name="pre_input_author">请输入作者：</string>
+    <string name="like">喜欢</string>
 
     <string-array name="spinner_data">
         <item>其他</item>

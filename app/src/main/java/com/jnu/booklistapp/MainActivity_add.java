@@ -24,18 +24,27 @@ public class MainActivity_add extends AppCompatActivity {
             "历史",
             "人文",
     };
-    private String tag = tagList[0];;
+    private int position;
+    private String tag = tagList[0];
+    private Intent intent;
+
+    private EditText editText;
+    private EditText editText_author;
+    private Button button_yes;
+    private Button button_no;
+    private Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_add);
-        Intent intent = getIntent();
-        int position = intent.getIntExtra("position",0);
-        EditText editText = this.findViewById(R.id.editText2_id);
-        Button button_yes = this.findViewById(R.id.button2_yes_id);
-        Button button_no = this.findViewById(R.id.button2_no_id);
-        Spinner spinner = findViewById(R.id.spinner2);
+        intent = getIntent();
+        position = intent.getIntExtra("position",0);
+        editText = this.findViewById(R.id.editText2_id);
+        editText_author = this.findViewById(R.id.editText_author);
+        button_yes = this.findViewById(R.id.button2_yes_id);
+        button_no = this.findViewById(R.id.button2_no_id);
+        spinner = findViewById(R.id.spinner2);
         ArrayAdapter<String> adapter2=new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item ,tagList);
         spinner.setAdapter(adapter2);
@@ -44,6 +53,10 @@ public class MainActivity_add extends AppCompatActivity {
         if (intent.getStringExtra("book_name")!=null){
             resultCode = 888;
             editText.setText(intent.getStringExtra("book_name"));
+        }
+        if (intent.getStringExtra("author")!=null){
+            resultCode = 888;
+            editText_author.setText(intent.getStringExtra("author"));
         }
         if (intent.getStringExtra("tag")!=null){
             resultCode = 888;
@@ -59,10 +72,10 @@ public class MainActivity_add extends AppCompatActivity {
         button_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String str = String.valueOf(editText.getText());
                 intent.putExtra("position",position);
-                intent.putExtra("data",str);
+                intent.putExtra("data",String.valueOf(editText.getText()));
                 intent.putExtra("tag",tag);
+                intent.putExtra("author",String.valueOf(editText_author.getText()));
                 setResult(resultCode,intent);
                 finish();
             }

@@ -1,5 +1,9 @@
 package com.jnu.booklistapp;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,7 +13,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +25,7 @@ public class MainActivity_selected extends AppCompatActivity {
     private List<Book> mBookList_selected=new ArrayList<Book>();
     private String tag;
     private RecyclerView recyclerView;
-    private BookAdapter mBookAdapter;
+    private BookAdapterClassify mBookAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +46,7 @@ public class MainActivity_selected extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mBookAdapter=new BookAdapter(mBookList_selected,this);
+        mBookAdapter=new BookAdapterClassify(mBookList_selected,this);
         recyclerView.setAdapter(mBookAdapter);
 
     }
@@ -83,5 +89,37 @@ public class MainActivity_selected extends AppCompatActivity {
             }
         }
     }
+
+    private void save(){
+        ObjectOutputStream outputStream = null;
+        try{
+            FileOutputStream fout =openFileOutput("data.txt", MODE_PRIVATE);
+            outputStream = new ObjectOutputStream(fout);
+            outputStream.writeObject(mBookList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if(outputStream != null)
+                    outputStream.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public ActivityResultLauncher test_classify = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>(){
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent intent = result.getData();
+                    Boolean isLike = intent.getBooleanExtra("isLike",false);
+                    int position = intent.getIntExtra("position",0);
+                    mBookList.get(position).setLike(isLike);
+                    mBookAdapter.notifyItemChanged(position);
+                    save();
+                }
+            });
 
 }
