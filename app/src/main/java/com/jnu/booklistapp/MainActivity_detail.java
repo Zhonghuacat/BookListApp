@@ -41,21 +41,32 @@ public class MainActivity_detail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_detail);
-
-        intent = getIntent();
-        bookId = intent.getLongExtra("bookId",0);
-        name = intent.getStringExtra("name");
-        tag = intent.getStringExtra("tag");
-        author = intent.getStringExtra("author");
-        imageId = intent.getIntExtra("imageId",0);
-        isLike = intent.getBooleanExtra("isLike",false);
-
+        getDataFromIntent();
         loadData();
-//        book = new Book(imageId,name,tag);
-//        book.setBookId(bookId);
-//        book.setAuthors(author);
-//        book.setLike(isLike);
+        initView();
+        setButtonListener();
+    }
 
+    private void setButtonListener() {
+        imageButton_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isLike=false;
+                imageButton_like.setVisibility(View.GONE);
+                imageButton_disLike.setVisibility(View.VISIBLE);
+            }
+        });
+        imageButton_disLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isLike=true;
+                imageButton_like.setVisibility(View.VISIBLE);
+                imageButton_disLike.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void initView() {
         textView_name = findViewById(R.id.textView_detail_name);
         textView_tag = findViewById(R.id.textView_detail_tag);
         textView_author = findViewById(R.id.textView_detail_author);
@@ -74,23 +85,16 @@ public class MainActivity_detail extends AppCompatActivity {
             imageButton_like.setVisibility(View.GONE);
             imageButton_disLike.setVisibility(View.VISIBLE);
         }
+    }
 
-        imageButton_like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isLike=false;
-                imageButton_like.setVisibility(View.GONE);
-                imageButton_disLike.setVisibility(View.VISIBLE);
-            }
-        });
-        imageButton_disLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isLike=true;
-                imageButton_like.setVisibility(View.VISIBLE);
-                imageButton_disLike.setVisibility(View.GONE);
-            }
-        });
+    private void getDataFromIntent() {
+        intent = getIntent();
+        bookId = intent.getLongExtra("bookId",0);
+        name = intent.getStringExtra("name");
+        tag = intent.getStringExtra("tag");
+        author = intent.getStringExtra("author");
+        imageId = intent.getIntExtra("imageId",0);
+        isLike = intent.getBooleanExtra("isLike",false);
     }
 
     @Override
