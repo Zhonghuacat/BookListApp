@@ -13,48 +13,33 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity_like extends AppCompatActivity {
+public class MainActivity_time extends AppCompatActivity {
 
-    private List<Book> mBookList=new ArrayList<Book>();
-    private List<Book> mBookList_like =new ArrayList<Book>();
+    private List<Book> mBookList_time =new ArrayList<Book>();
     private RecyclerView recyclerView;
     private BookAdapter2 mBookAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_like);
-
+        setContentView(R.layout.activity_main_time);
         loadData();
-        for (Book book : mBookList) {
-            if (book.isLike()){
-                mBookList_like.add(book);
-            }
-        }
 
-        recyclerView=(RecyclerView)findViewById(R.id.recyclerView_like);
+        recyclerView=(RecyclerView)findViewById(R.id.recyclerView_time);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mBookAdapter=new BookAdapter2(mBookList_like,this);
+        mBookAdapter=new BookAdapter2(mBookList_time,this);
         recyclerView.setAdapter(mBookAdapter);
 
     }
 
-//    public ActivityResultLauncher test_like = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>(){
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                }
-//            });
-
     private void loadData(){
         ObjectInputStream inputStream = null;
         try{
-            FileInputStream fin =openFileInput("data.txt");
+            FileInputStream fin =openFileInput("dataTime.txt");
             inputStream = new ObjectInputStream(fin);
-            mBookList = (List<Book>)inputStream.readObject();
+            mBookList_time = (List<Book>)inputStream.readObject();
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -70,9 +55,9 @@ public class MainActivity_like extends AppCompatActivity {
     private void save(){
         ObjectOutputStream outputStream = null;
         try{
-            FileOutputStream fout =openFileOutput("data.txt", MODE_PRIVATE);
+            FileOutputStream fout =openFileOutput("dataTime.txt", MODE_PRIVATE);
             outputStream = new ObjectOutputStream(fout);
-            outputStream.writeObject(mBookList);
+            outputStream.writeObject(mBookList_time);
         }catch (Exception e){
             e.printStackTrace();
         }finally {

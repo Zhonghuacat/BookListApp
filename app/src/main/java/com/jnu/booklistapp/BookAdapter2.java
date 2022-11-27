@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BookAdapterLike extends RecyclerView.Adapter<BookAdapterLike.MyHolder>{
+public class BookAdapter2 extends RecyclerView.Adapter<BookAdapter2.MyHolder>{
     private int position;
     private List<Book> mBookList;
     private Context mContext;
@@ -22,22 +22,22 @@ public class BookAdapterLike extends RecyclerView.Adapter<BookAdapterLike.MyHold
     public void setContextMenuPosition(int position) { this.position = position; }
 
     //构造函数初始化数据
-    public BookAdapterLike(List<Book>mBookList, Context mContext){
+    public BookAdapter2(List<Book>mBookList, Context mContext){
         this.mBookList=mBookList;
         this.mContext=mContext;
     }
 
     //创建Holder时候将去绑定一个Item
     @Override
-    public BookAdapterLike.MyHolder onCreateViewHolder(ViewGroup parent, int viewType){
+    public BookAdapter2.MyHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item,parent,false);
-        BookAdapterLike.MyHolder holder=new BookAdapterLike.MyHolder(view);
+        BookAdapter2.MyHolder holder=new BookAdapter2.MyHolder(view);
         return holder;
     }
 
     //给Holder的Item的View绑定值
     @Override
-    public void onBindViewHolder(@NonNull final BookAdapterLike.MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final BookAdapter2.MyHolder holder, int position) {
         Book book=mBookList.get(position);
         holder.bookName.setText(book.getName());
         holder.bookImage.setImageResource(book.getImageId());
@@ -61,8 +61,8 @@ public class BookAdapterLike extends RecyclerView.Adapter<BookAdapterLike.MyHold
                 intent.putExtra("author",book.getAuthors());
                 intent.putExtra("imageId",book.getImageId());
                 intent.putExtra("isLike",book.isLike());
-//                mContext.startActivity(intent);
-                ((MainActivity_like)mContext).test_like.launch(intent);
+                mContext.startActivity(intent);
+//                ((MainActivity_like)mContext).test_like.launch(intent);
             }
         });
 

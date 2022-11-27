@@ -20,9 +20,9 @@ import java.util.List;
 public class MainActivity_detail extends AppCompatActivity {
 
     private List<Book> mBookList=new ArrayList<Book>();
+    private List<Book> mBookList_time=new ArrayList<Book>();
     Intent intent;
     private int resultCode=111;
-    private Book book;
     private long bookId;
     private String name;
     private String tag;
@@ -43,7 +43,9 @@ public class MainActivity_detail extends AppCompatActivity {
         setContentView(R.layout.activity_main_detail);
         getDataFromIntent();
         loadData();
+        loadDataTime();
         initView();
+        addBookToRead();
         setButtonListener();
     }
 
@@ -97,6 +99,23 @@ public class MainActivity_detail extends AppCompatActivity {
         isLike = intent.getBooleanExtra("isLike",false);
     }
 
+    private void addBookToRead() {
+        Book book_read = new Book(imageId,name,tag);
+        book_read.setAuthors(author);
+        book_read.setBookId(bookId);
+        book_read.setLike(isLike);
+        int position=-1;
+        for (Book book:mBookList_time) {
+            if (book.isLike()==isLike&&book.getAuthors().equals(author)
+            &&book.getTag().equals(tag)&&book.getName().equals(name)&&book.getImageId()==imageId){
+                position = mBookList_time.indexOf(book);
+            }
+        }
+        if (position!=-1) mBookList_time.remove(position);
+        mBookList_time.add(0,book_read);
+        saveTime();
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode== KeyEvent.KEYCODE_BACK){
@@ -117,7 +136,6 @@ public class MainActivity_detail extends AppCompatActivity {
         return true;
     }
 
-
     private void loadData(){
         ObjectInputStream inputStream = null;
         try{
@@ -136,12 +154,48 @@ public class MainActivity_detail extends AppCompatActivity {
         }
     }
 
+    private void loadDataTime(){
+        ObjectInputStream inputStream = null;
+        try{
+            FileInputStream fin =openFileInput("dataTime.txt");
+            inputStream = new ObjectInputStream(fin);
+            mBookList_time = (List<Book>)inputStream.readObject();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if(inputStream != null)
+                    inputStream.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void save(){
         ObjectOutputStream outputStream = null;
         try{
             FileOutputStream fout =openFileOutput("data.txt", MODE_PRIVATE);
             outputStream = new ObjectOutputStream(fout);
             outputStream.writeObject(mBookList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try{
+                if(outputStream != null)
+                    outputStream.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void saveTime(){
+        ObjectOutputStream outputStream = null;
+        try{
+            FileOutputStream fout =openFileOutput("dataTime.txt", MODE_PRIVATE);
+            outputStream = new ObjectOutputStream(fout);
+            outputStream.writeObject(mBookList_time);
         }catch (Exception e){
             e.printStackTrace();
         }finally {

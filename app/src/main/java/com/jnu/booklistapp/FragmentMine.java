@@ -51,7 +51,8 @@ public class FragmentMine extends Fragment {
         linearLayout_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(context, MainActivity_time.class);
+                startActivity(intent);
             }
         });
         linearLayout_like.setOnClickListener(new View.OnClickListener() {
