@@ -108,7 +108,6 @@ public class MainActivity_detail extends AppCompatActivity {
                     intent.putExtra("position",position);
                     intent.putExtra("isLike",isLike);
                     setResult(resultCode,intent);
-//                    mBookAdapter.notifyAll();
                     save();
                     break;
                 }
