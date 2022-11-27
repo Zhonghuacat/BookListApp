@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.radioButton2:
                         switchFragment(new FragmentClassify());break;
                     case R.id.radioButton3:
-                        switchFragment(new FragmentClassify());break;
+                        switchFragment(new FragmentGame());break;
                     case R.id.radioButton4:
                         switchFragment(new FragmentClassify());break;
                     default:break;

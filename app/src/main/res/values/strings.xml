@@ -19,6 +19,8 @@
     <string name="other">其他</string>
     <string name="pre_input_author">请输入作者：</string>
     <string name="like">喜欢</string>
+    <string name="start">开始</string>
+    <string name="score">最高分：</string>
 
     <string-array name="spinner_data">
         <item>其他</item>
