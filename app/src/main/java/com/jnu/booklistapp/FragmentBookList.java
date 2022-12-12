@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
@@ -16,11 +17,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,15 +44,57 @@ public class FragmentBookList extends Fragment {
     private RecyclerView recyclerView;
     public BookAdapter mBookAdapter;
     private Context context;
+    private EditText editText_select;
+    private ImageView imageView_no;
+    private TextView textView_select;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_book_list, container, false);
-        recyclerView=(RecyclerView)view.findViewById(R.id.recyclerView_id);
+        initView(view);
+
         context=getActivity();
         setRecyclerView();
         return view;
+    }
+
+    private void initView(View view) {
+        recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView_id);
+        editText_select = view.findViewById(R.id.edittext_select);
+        imageView_no = view.findViewById(R.id.imageview_select);
+        textView_select = view.findViewById(R.id.textview_select);
+
+        imageView_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editText_select.setText("");
+            }
+        });
+
+        editText_select.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length()==0){
+                    imageView_no.setVisibility(View.GONE);
+                }else{
+                    imageView_no.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        textView_select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
     }
 
     private void setRecyclerView(){
