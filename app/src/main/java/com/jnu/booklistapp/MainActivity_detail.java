@@ -113,6 +113,7 @@ public class MainActivity_detail extends AppCompatActivity {
                 if (book.isLike()==isLike&&book.getAuthors().equals(author)
                         &&book.getTag().equals(tag)&&book.getName().equals(name)&&book.getImageId()==imageId){
                     position = mBookList_time.indexOf(book);
+                    //会找到最后一个符合条件的一项，也就是返回旧的一项
                 }
             }
         }
