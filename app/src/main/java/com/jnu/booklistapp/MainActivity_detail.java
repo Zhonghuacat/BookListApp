@@ -104,15 +104,19 @@ public class MainActivity_detail extends AppCompatActivity {
         book_read.setAuthors(author);
         book_read.setBookId(bookId);
         book_read.setLike(isLike);
+//        mBookList_time.clear();
+        mBookList_time.add(0,book_read);
         int position=-1;
-        for (Book book:mBookList_time) {
-            if (book.isLike()==isLike&&book.getAuthors().equals(author)
-            &&book.getTag().equals(tag)&&book.getName().equals(name)&&book.getImageId()==imageId){
-                position = mBookList_time.indexOf(book);
+        if (mBookList_time.isEmpty()) {
+        } else {
+            for (Book book:mBookList_time) {
+                if (book.isLike()==isLike&&book.getAuthors().equals(author)
+                        &&book.getTag().equals(tag)&&book.getName().equals(name)&&book.getImageId()==imageId){
+                    position = mBookList_time.indexOf(book);
+                }
             }
         }
-        if (position!=-1) mBookList_time.remove(position);
-        mBookList_time.add(0,book_read);
+        if (position!=-1 && position!=0) mBookList_time.remove(position);
         saveTime();
     }
 

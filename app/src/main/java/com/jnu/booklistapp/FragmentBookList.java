@@ -32,7 +32,7 @@ import java.util.List;
 
 public class FragmentBookList extends Fragment {
 
-    private List<Book> mBookList;
+    private List<Book> mBookList = new ArrayList<>();
     private RecyclerView recyclerView;
     public BookAdapter mBookAdapter;
     private Context context;
@@ -123,8 +123,11 @@ public class FragmentBookList extends Fragment {
     private void initBook() {
         for(int i=0;i<5;i++){
             Book book01=new Book(R.drawable.book_1,"信息安全数学基础（第2版）","科技");
+            book01.setLike(false);book01.setAuthors("无");book01.setTag("科技");
             Book book02=new Book(R.drawable.book_2,"软件项目管理案例教程（第4版）","科技");
+            book02.setLike(false);book02.setAuthors("无");book02.setTag("科技");
             Book book03=new Book(R.drawable.book_no_name,"创新工程实践","科技");
+            book03.setLike(false);book03.setAuthors("无");book03.setTag("科技");
             mBookList.add(book01);
             mBookList.add(book02);
             mBookList.add(book03);
