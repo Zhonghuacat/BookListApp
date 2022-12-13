@@ -90,7 +90,13 @@ public class FragmentBookList extends Fragment {
         textView_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (editText_select.getText().toString().trim().equals("")){
+                    Toast.makeText(context,"请输入搜索内容",Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent =new Intent(context,MainActivity_select.class);
+                    intent.putExtra("str",editText_select.getText().toString().trim());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -184,6 +190,7 @@ public class FragmentBookList extends Fragment {
         }
     }
 
+    //启动修改添加页面的
     public ActivityResultLauncher test = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>(){
@@ -213,6 +220,7 @@ public class FragmentBookList extends Fragment {
                 }
             });
 
+    //启动详细页面的
     public ActivityResultLauncher test2 = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>(){
@@ -224,7 +232,6 @@ public class FragmentBookList extends Fragment {
                     mBookList.get(position).setLike(isLike);
                     mBookAdapter.notifyItemChanged(position);
                     save();
-
                 }
             });
 
