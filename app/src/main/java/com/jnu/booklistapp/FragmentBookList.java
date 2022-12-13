@@ -30,6 +30,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -47,6 +49,8 @@ public class FragmentBookList extends Fragment {
     private EditText editText_select;
     private ImageView imageView_no;
     private TextView textView_select;
+    private FloatingActionButton fab_add;
+    private FloatingActionButton fab_up;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +68,8 @@ public class FragmentBookList extends Fragment {
         editText_select = view.findViewById(R.id.edittext_select);
         imageView_no = view.findViewById(R.id.imageview_select);
         textView_select = view.findViewById(R.id.textview_select);
+        fab_add = view.findViewById(R.id.fab_add);
+        fab_up = view.findViewById(R.id.fab_up);
 
         imageView_no.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +103,22 @@ public class FragmentBookList extends Fragment {
                     intent.putExtra("str",editText_select.getText().toString().trim());
                     startActivity(intent);
                 }
+            }
+        });
+
+        fab_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context,MainActivity_add.class);
+                intent.putExtra("position",0);
+                test.launch(intent);
+            }
+        });
+
+        fab_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.scrollToPosition(0);
             }
         });
 
